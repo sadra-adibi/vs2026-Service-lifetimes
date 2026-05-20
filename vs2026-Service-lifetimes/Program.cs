@@ -38,26 +38,78 @@ app.MapGet("/all",
     SingletonService singleton2
 ) =>
 {
-    return
-$"""
-==============================
-        TRANSIENT
-==============================
-Service 1: {transient1.GetId()}
-Service 2: {transient2.GetId()}
+    string html = $@"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Service Lifetimes</title>
 
-==============================
-          SCOPED
-==============================
-Service 1: {scoped1.GetId()}
-Service 2: {scoped2.GetId()}
+    <style>
+        body
+        {{
+            background-color: #1e1e1e;
+            color: white;
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }}
 
-==============================
-        SINGLETON
-==============================
-Service 1: {singleton1.GetId()}
-Service 2: {singleton2.GetId()}
-""";
+        .box
+        {{
+            background-color: #2d2d2d;
+            padding: 40px;
+            border-radius: 15px;
+            width: 700px;
+        }}
+
+        h1
+        {{
+            text-align: center;
+        }}
+
+        .section
+        {{
+            margin-top: 30px;
+        }}
+    </style>
+</head>
+
+<body>
+
+    <div class='box'>
+
+        <h1>Service Lifetimes</h1>
+
+        <div class='section'>
+            <h2>Transient</h2>
+
+            <p>Service 1: {transient1.GetId()}</p>
+            <p>Service 2: {transient2.GetId()}</p>
+        </div>
+
+        <div class='section'>
+            <h2>Scoped</h2>
+
+            <p>Service 1: {scoped1.GetId()}</p>
+            <p>Service 2: {scoped2.GetId()}</p>
+        </div>
+
+        <div class='section'>
+            <h2>Singleton</h2>
+
+            <p>Service 1: {singleton1.GetId()}</p>
+            <p>Service 2: {singleton2.GetId()}</p>
+        </div>
+
+    </div>
+
+</body>
+</html>";
+
+    return Results.Content(html, "text/html");
 });
 
 app.Run();
