@@ -4,6 +4,7 @@ using vs2026_Service_lifetimes.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<TransientService>();
 builder.Services.AddSingleton<SingletonService>();
+builder.Services.AddScoped<ScopedService>();
 
 //// Add services to the container.
 
@@ -35,7 +36,10 @@ app.MapGet("/singleton", (SingletonService service) =>
     return $"Singleton ID: {service.GetId()}";
 });
 
-
+app.MapGet("/scoped", (ScopedService service) =>
+{
+    return $"Scoped ID: {service.GetId()}";
+});
 
 
 app.Run();
