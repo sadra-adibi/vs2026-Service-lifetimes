@@ -1,4 +1,9 @@
+using vs2026_Service_lifetimes.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddTransient<TransientService>();
+//builder.Services.AddSingleton<SingletonService>();
 
 //// Add services to the container.
 
@@ -20,4 +25,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/transient", (TransientService service) =>
+{
+    return $"Transient ID: {service.GetId()}";
+});
+
+
+
+
 app.Run();
+
