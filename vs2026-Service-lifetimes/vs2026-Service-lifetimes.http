@@ -1,0 +1,6 @@
+@vs2026_Service_lifetimes_HostAddress = http://localhost:5030
+
+GET {{vs2026_Service_lifetimes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
