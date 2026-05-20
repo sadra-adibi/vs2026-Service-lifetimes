@@ -26,7 +26,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/all",
+app.MapGet("/",
 (
     TransientService transient1,
     TransientService transient2,
