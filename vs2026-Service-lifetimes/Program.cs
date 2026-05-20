@@ -26,21 +26,39 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/transient", (TransientService service) =>
-{
-    return $"Transient ID: {service.GetId()}";
-});
+app.MapGet("/all",
+(
+    TransientService transient1,
+    TransientService transient2,
 
-app.MapGet("/singleton", (SingletonService service) =>
-{
-    return $"Singleton ID: {service.GetId()}";
-});
+    ScopedService scoped1,
+    ScopedService scoped2,
 
-app.MapGet("/scoped", (ScopedService service) =>
+    SingletonService singleton1,
+    SingletonService singleton2
+) =>
 {
-    return $"Scoped ID: {service.GetId()}";
-});
+    return
+$"""
+==============================
+        TRANSIENT
+==============================
+Service 1: {transient1.GetId()}
+Service 2: {transient2.GetId()}
 
+==============================
+          SCOPED
+==============================
+Service 1: {scoped1.GetId()}
+Service 2: {scoped2.GetId()}
+
+==============================
+        SINGLETON
+==============================
+Service 1: {singleton1.GetId()}
+Service 2: {singleton2.GetId()}
+""";
+});
 
 app.Run();
 
